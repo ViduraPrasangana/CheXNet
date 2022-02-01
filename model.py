@@ -71,6 +71,7 @@ def main():
     model.eval()
 
     for i, (inp, target) in enumerate(test_loader):
+        print("step "+str(i))
         target = target.cuda()
         gt = torch.cat((gt, target), 0)
         bs, n_crops, c, h, w = inp.size()
