@@ -37,7 +37,10 @@ def main():
     if os.path.isfile(CKPT_PATH):
         print("=> loading checkpoint")
         checkpoint = torch.load(CKPT_PATH)
-        model.load_state_dict(checkpoint['state_dict'])
+        state_dict = checkpoint['state_dict']
+        for key in list(state_dict.keys()):
+            state_dict[key.replace('.1.', '1.'). replace('.2.', '2.')] = state_dict.pop(key)
+        model.load_state_dict(state_dict)
         print("=> loaded checkpoint")
     else:
         print("=> no checkpoint found")
